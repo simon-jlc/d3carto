@@ -13,4 +13,30 @@ environment:
         databases:
             -
                 user: app1.database.user
-                host: app1.host.user
+                host: app1.database.host
+            -
+                user: app2.database.user
+                host: app2.database.host
+    otherApplication:
+        -
+            propertySrcPath: classpath:/config/environment-dev.properties
+            propertySrcType: RESOURCES
+            applicationName: app2.name
+            applicationHost: app2.localhost
+            linkedApps:
+                -
+                    propertiesName: app3.localhost
+            databases:
+                -
+                    user: app2.database.user
+                    host: app2.database.host
+        -
+            propertySrcPath: classpath:/config/environment-dev.properties
+            propertySrcType: RESOURCES
+            applicationName: app3.name
+            applicationHost: app3.localhost
+            databases:
+                -
+                    user: app3.database.user
+                    host: app3.database.host
+            

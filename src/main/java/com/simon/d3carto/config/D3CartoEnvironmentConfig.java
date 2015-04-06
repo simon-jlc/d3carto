@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import com.simon.d3carto.domain.conf.App;
-import com.simon.d3carto.domain.conf.SimpleApp;
 
 /**
  * 
@@ -22,5 +21,5 @@ import com.simon.d3carto.domain.conf.SimpleApp;
 @ConfigurationProperties(prefix="environment", locations="classpath:/config/d3carto.yaml")
 public class D3CartoEnvironmentConfig {
 	public App mainApplication;
-	public List<SimpleApp> otherApplication;
+	public List<App> otherApplication;
 }
