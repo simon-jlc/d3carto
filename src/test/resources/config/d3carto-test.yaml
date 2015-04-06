@@ -1,0 +1,9 @@
+environment:
+    mainApplication: app2.name
+    otherApplication: app2.name
+    app: &app !!com.simon.d3carto.carto.App
+        propertySrcPath: test path
+        propertySrcType: test type
+        applicationName: Application Name
+        applicationHost: app.hostname
+    
