@@ -1,4 +1,6 @@
-package com.simon.d3carto.carto;
+package com.simon.d3carto.domain.conf;
+
+import java.util.List;
 
 import lombok.Data;
 
@@ -13,4 +15,7 @@ public class App {
 	private String propertySrcType;
 	private String applicationName;
 	private String applicationHost;
+	
+	private List<SimpleApp> linkedApps;
+	private List<Database> databases;
 }

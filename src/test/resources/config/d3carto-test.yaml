@@ -1,9 +1,16 @@
+# environment is entry point to define environment cartography
+#  
+#
 environment:
-    mainApplication: app2.name
-    otherApplication: app2.name
-    app: &app !!com.simon.d3carto.carto.App
-        propertySrcPath: test path
-        propertySrcType: test type
-        applicationName: Application Name
-        applicationHost: app.hostname
-    
+    mainApplication:
+        propertySrcPath: classpath:/config/environment-dev.properties
+        propertySrcType: RESOURCES
+        applicationName: app1.name
+        applicationHost: app1.localhost
+        linkedApps:
+            -
+                propertiesName: app2.localhost
+        databases:
+            -
+                user: app1.database.user
+                host: app1.host.user

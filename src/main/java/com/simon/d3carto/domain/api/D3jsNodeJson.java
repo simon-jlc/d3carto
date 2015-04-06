@@ -1,4 +1,4 @@
-package com.simon.d3carto.batch;
+package com.simon.d3carto.domain.api;
 
 import java.util.List;
 

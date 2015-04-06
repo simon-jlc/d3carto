@@ -1,4 +1,6 @@
-package com.simon.d3carto.domain;
+package com.simon.d3carto.domain.node;
+
+import com.simon.d3carto.domain.Environment;
 
 import lombok.Data;
 

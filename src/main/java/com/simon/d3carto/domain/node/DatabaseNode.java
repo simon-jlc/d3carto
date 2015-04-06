@@ -1,4 +1,4 @@
-package com.simon.d3carto.domain;
+package com.simon.d3carto.domain.node;
 
 import java.util.List;
 

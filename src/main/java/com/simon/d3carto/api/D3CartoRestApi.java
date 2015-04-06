@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.simon.d3carto.batch.D3CartoBatchProcessor;
-import com.simon.d3carto.batch.D3jsNodeJson;
-import com.simon.d3carto.domain.D3jsNode;
+import com.simon.d3carto.domain.api.D3jsNodeJson;
+import com.simon.d3carto.domain.node.D3jsNode;
 
 /**
  * 

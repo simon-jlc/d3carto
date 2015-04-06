@@ -6,9 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
-import com.simon.d3carto.domain.ApplicationNode;
-import com.simon.d3carto.domain.D3jsNode;
-import com.simon.d3carto.domain.DatabaseNode;
+import com.simon.d3carto.domain.api.D3jsNodeJson;
+import com.simon.d3carto.domain.node.ApplicationNode;
+import com.simon.d3carto.domain.node.D3jsNode;
+import com.simon.d3carto.domain.node.DatabaseNode;
 
 
 /**
