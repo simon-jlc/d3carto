@@ -1,4 +1,4 @@
-package com.simon.d3carto.carto;
+package com.simon.d3carto.config;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import com.simon.d3carto.domain.conf.SimpleApp;
 @Data
 @Configuration
 @Component
-@ConfigurationProperties(prefix="environment", locations="/config/d3carto-test.yaml")
+@ConfigurationProperties(prefix="environment", locations="classpath:/config/d3carto.yaml")
 public class D3CartoEnvironmentConfig {
 	public App mainApplication;
 	public List<SimpleApp> otherApplication;

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @Configuration
 @ComponentScan("com.simon.d3carto")
-@PropertySource("classpath:/config/environment-dev-test.properties")
-public class D3CartoTestConfig {
+@PropertySource("classpath:/config/environment-dev.properties")
+public class D3CartoConfig {
+
 }

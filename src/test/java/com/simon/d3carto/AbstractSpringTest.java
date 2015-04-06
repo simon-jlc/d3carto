@@ -9,7 +9,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.simon.d3carto.carto.D3CartoEnvironmentConfig;
+import com.simon.d3carto.config.D3CartoEnvironmentConfig;
 import com.simon.d3carto.config.D3CartoTestConfig;
 
 /**
@@ -25,7 +25,7 @@ public class AbstractSpringTest {
     private ApplicationContext applicationContext;
 
 	@Autowired
-	private D3CartoEnvironmentConfig d3CartoEnvironmentConfig;
+	protected D3CartoEnvironmentConfig d3CartoEnvironmentConfig;
 	
 	@Test
 	public void testConfig() {

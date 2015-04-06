@@ -2,9 +2,17 @@ package com.simon.d3carto.batch;
 
 import java.util.List;
 
+import org.springframework.core.env.Environment;
+
 import com.google.common.collect.Lists;
+import com.simon.d3carto.config.D3CartoEnvironmentConfig;
 import com.simon.d3carto.domain.api.D3jsNodeJson;
+import com.simon.d3carto.domain.conf.App;
+import com.simon.d3carto.domain.conf.Database;
+import com.simon.d3carto.domain.conf.SimpleApp;
+import com.simon.d3carto.domain.node.ApplicationNode;
 import com.simon.d3carto.domain.node.D3jsNode;
+import com.simon.d3carto.domain.node.DatabaseNode;
 
 /**
  * 
@@ -13,22 +21,39 @@ import com.simon.d3carto.domain.node.D3jsNode;
  */
 public class D3CartoBatchProcessor {
 	
-	public static D3jsNode refresh() {
+	public static D3jsNode refresh(D3CartoEnvironmentConfig config, Environment environment) {
+		List<DatabaseNode> dbsNode = null;
+		List<ApplicationNode> appsNode = null;
 		
+		App mainApp = config.getMainApplication();
 		
-		return null;
+		// evaluate properties
+		List<Database> mainAppDbs = mainApp.getDatabases();
+		for(Database db : mainAppDbs) {
+			if(dbsNode == null) {
+				dbsNode = Lists.newArrayList();
+			}
+			
+			String user = environment.getProperty(db.getUser());
+			String host = environment.getProperty(db.getHost());
+			dbsNode.add(new DatabaseNode(user, host));
+		}
+		
+		List<SimpleApp> simplesApp = mainApp.getLinkedApps();
+		for(SimpleApp simpleApp : simplesApp) {
+			if(appsNode == null) {
+				appsNode = Lists.newArrayList();
+			}
+			
+			// TODO : implement sub link
+//			appsNode.add(new ApplicationNode(, server, linkedApps, databases))
+		}
+		
+		String mainApplicationName = environment.getProperty(mainApp.getApplicationName());
+		String mainApplicationHost = environment.getProperty(mainApp.getApplicationHost());
+		
+		return new ApplicationNode(mainApplicationName, mainApplicationHost, appsNode, dbsNode);
 	}
-	
-//	public static D3jsNode refresh() {
-//		
-//		DatabaseNode dbApp1 = new DatabaseNode("root", "srvdevdb01");
-//		ApplicationNode app1 = new ApplicationNode("Application 01", "srvdevapp01", null, Lists.newArrayList(dbApp1));
-//		
-//		DatabaseNode dbApp2 = new DatabaseNode("root", "srvdevdb02");
-//		ApplicationNode app2 = new ApplicationNode("Application 02", "srvdevapp02", Lists.newArrayList(app1), Lists.newArrayList(dbApp1, dbApp2));
-//		
-//		return app2;
-//	}
 	
 	/**
 	 * Enable to convert a D3jsNode into D3jsNodeJson to Jacksonify it.

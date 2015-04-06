@@ -2,6 +2,9 @@ package com.simon.d3carto;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+
+import com.simon.d3carto.config.D3CartoConfig;
 
 /**
  * 
@@ -9,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author simon
  */
 @SpringBootApplication
+@SpringApplicationConfiguration(classes=D3CartoConfig.class)
 public class D3CartoApplication {
 
 	public static void main(String[] args) {

@@ -1,19 +1,16 @@
+# environment is entry point to define environment cartography
+#  
+#
 environment:
     mainApplication:
         propertySrcPath: classpath:/config/environment-dev.properties
         propertySrcType: RESOURCES
         applicationName: app1.name
         applicationHost: app1.localhost
-        linkedWith:
-            database:
-                propertyName: app1.database.host
-            application:
-                propertyName: app2.localhost
-    otherApplication:
-        propertySrcPath: classpath:/config/environment-dev.properties
-        propertySrcType: RESOURCES
-        applicationName: app2.name
-        applicationHost: app2.localhost
-        linkedWith:
-            database:
-                propertyName: app2.database.host
+        linkedApps:
+            -
+                propertiesName: app2.localhost
+        databases:
+            -
+                user: app1.database.user
+                host: app1.host.user
