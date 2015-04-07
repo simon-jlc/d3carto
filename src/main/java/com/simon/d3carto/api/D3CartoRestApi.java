@@ -1,5 +1,7 @@
 package com.simon.d3carto.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,7 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.simon.d3carto.batch.D3CartoBatchProcessor;
 import com.simon.d3carto.config.D3CartoEnvironmentConfig;
-import com.simon.d3carto.domain.api.D3jsNodeJson;
+import com.simon.d3carto.domain.api.D3jsFlatNodeJson;
+import com.simon.d3carto.domain.api.D3jsTreeNodeJson;
 import com.simon.d3carto.domain.node.D3jsNode;
 
 /**
@@ -31,8 +34,15 @@ public class D3CartoRestApi {
 	}
 	
 	@RequestMapping(value="/api/carto", method=RequestMethod.GET)
-	public D3jsNodeJson carto() {
+	public D3jsTreeNodeJson carto() {
 		D3jsNode d3jsNode = D3CartoBatchProcessor.refresh(d3CartoEnvironmentConfig, environment);
-		return D3CartoBatchProcessor.convert(d3jsNode);
+		return D3CartoBatchProcessor.convertToTreeJson(d3jsNode);
 	}
+	
+	@RequestMapping(value="/api/carto2", method=RequestMethod.GET)
+	public List<D3jsFlatNodeJson> carto2() {
+		D3jsNode d3jsNode = D3CartoBatchProcessor.refresh(d3CartoEnvironmentConfig, environment);
+		return D3CartoBatchProcessor.convertToFlatNode(d3jsNode, null);
+	}
+	
 }

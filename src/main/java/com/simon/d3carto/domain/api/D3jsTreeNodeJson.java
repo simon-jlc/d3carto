@@ -13,10 +13,10 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class D3jsNodeJson {
+public class D3jsTreeNodeJson {
 	
 	private String name;
 	
-	private List<D3jsNodeJson> children;
+	private List<D3jsTreeNodeJson> children;
 	
 }

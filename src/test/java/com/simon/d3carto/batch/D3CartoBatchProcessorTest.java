@@ -10,7 +10,7 @@ import org.springframework.core.env.Environment;
 
 import com.google.common.collect.Lists;
 import com.simon.d3carto.AbstractSpringTest;
-import com.simon.d3carto.domain.api.D3jsNodeJson;
+import com.simon.d3carto.domain.api.D3jsTreeNodeJson;
 import com.simon.d3carto.domain.node.ApplicationNode;
 import com.simon.d3carto.domain.node.D3jsNode;
 import com.simon.d3carto.domain.node.DatabaseNode;
@@ -48,7 +48,7 @@ public class D3CartoBatchProcessorTest extends AbstractSpringTest {
 	
 	@Test
 	public void testConvert () {
-		D3jsNodeJson masterNodeJson = D3CartoBatchProcessor.convert(masterNode);
+		D3jsTreeNodeJson masterNodeJson = D3CartoBatchProcessor.convertToTreeJson(masterNode);
 		assertEquals("Application 02", masterNodeJson.getName());
 		assertEquals(3, masterNodeJson.getChildren().size());
 	}
