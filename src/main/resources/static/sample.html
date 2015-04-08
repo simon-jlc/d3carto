@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="d3carto-app">
+<html lang="en" ng-app="d3AngularApp">
 
 <head>
 <meta charset="utf-8">
@@ -22,20 +22,17 @@
 </head>
 
 <body>
-	<div class="main" ng-controller="D3CartoController as d3ctrl">
-		
-		<div class="svg-container" ng-controller="D3CartoGraph2 as d3graph">
-		
-		</div>
-		
+	<div class="main">
+		<div d3-bars bar-height="20" bar-padding="5"></div>
 	</div>
 
 	<!-- Vendor JavaScript libraries -->
 	<script src="/js/vendor/angular.min.js"></script>
-	<script src="http://d3js.org/d3.v3.min.js"></script>
+<!-- 	<script src="http://d3js.org/d3.v3.min.js"></script> -->
 	
 	<!-- D3Carto Javascript libraries -->
-	<script src="/js/d3carto-graph2.js"></script>
-	<script src="/js/d3carto-app.js"></script>
+	<script src="/js/d3service.js"></script>
+	<script src="/js/d3directives.js"></script>
+<!-- 	<script src="/js/d3app.js"></script> -->
 </body>
 </html>
