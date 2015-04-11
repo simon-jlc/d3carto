@@ -10,11 +10,8 @@ import lombok.Data;
  * @author simon 
  */
 @Data
-public abstract class AbstractNode implements D3jsNode {
+public abstract class AbstractNode {
+	
 	private Environment environment;
 	
-	@Override
-	public Integer getSize() {
-		return null;
-	}
 }

@@ -3,6 +3,7 @@ package com.simon.d3carto.config;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.test.context.ContextConfiguration;
 
 /**
  * 
@@ -12,5 +13,6 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @ComponentScan("com.simon.d3carto")
 @PropertySource("classpath:/config/environment-dev-test.properties")
+@ContextConfiguration(locations={"classpath:spring/d3carto-elasticsearch.xml", "classpath:spring/d3carto-elasticsearch.xml"})
 public class D3CartoTestConfig {
 }

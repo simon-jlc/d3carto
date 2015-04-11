@@ -3,7 +3,7 @@
 #
 environment:
     mainApplication:
-        propertySrcPath: classpath:/config/environment-dev.properties
+        propertySrcPath: file:/config/environment-dev.properties
         propertySrcType: RESOURCES
         applicationName: app1.name
         applicationHost: app1.localhost
@@ -19,7 +19,7 @@ environment:
                 host: app2.database.host
     otherApplication:
         -
-            propertySrcPath: classpath:/config/environment-dev.properties
+            propertySrcPath: file:/config/environment-dev.properties
             propertySrcType: RESOURCES
             applicationName: app2.name
             applicationHost: app2.localhost

@@ -6,7 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import com.google.common.collect.Lists;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 /**
  * 
@@ -16,29 +17,15 @@ import com.google.common.collect.Lists;
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=false)
+@Document(indexName = "applications", type = "application", shards = 1, replicas = 0, refreshInterval = "-1", indexStoreType = "memory")
 public class ApplicationNode extends AbstractNode {
 	
+	@Id
+	private String id;
 	private String name;
 	private String server;
 	private List<ApplicationNode> linkedApps;
 	private List<DatabaseNode> databases;
 	
-	@Override
-	public String getNodeName() {
-		return name;
-	}
-	
-	@Override
-	public List<D3jsNode> getChildren() {
-		List<D3jsNode> children = Lists.newArrayList();
-		if(databases != null) children.addAll(databases);
-		if(linkedApps != null) children.addAll(linkedApps);
-		return children;
-	}
-	
-	@Override
-	public boolean hasChildren() {
-		return (databases != null && !databases.isEmpty())
-				|| (linkedApps != null && !linkedApps.isEmpty());
-	}
+	public ApplicationNode() {}
 }
