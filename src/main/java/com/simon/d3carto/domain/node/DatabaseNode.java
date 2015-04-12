@@ -1,5 +1,7 @@
 package com.simon.d3carto.domain.node;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,4 +21,18 @@ public class DatabaseNode extends AbstractNode {
 	
 	public DatabaseNode() {}
 	
+	@Override
+	public List<AbstractNode> getChildren() {
+		return null;
+	}
+	
+	@Override
+	public boolean hasChildren() {
+		return false;
+	}
+
+	@Override
+	public String getName() {
+		return user + "@" + server;
+	}
 }

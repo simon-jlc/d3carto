@@ -9,6 +9,8 @@ import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import com.google.common.collect.Lists;
+
 /**
  * 
  * @since 5 avr. 2015
@@ -28,4 +30,18 @@ public class ApplicationNode extends AbstractNode {
 	private List<DatabaseNode> databases;
 	
 	public ApplicationNode() {}
+
+	@Override
+	public List<AbstractNode> getChildren() {
+		List<AbstractNode> children = Lists.newArrayList();
+		if(databases != null) children.addAll(databases);
+		if(linkedApps != null) children.addAll(linkedApps);
+		return children;
+	}
+	
+	@Override
+	public boolean hasChildren() {
+		return (databases != null && !databases.isEmpty())
+				|| (linkedApps != null && !linkedApps.isEmpty());
+	}
 }

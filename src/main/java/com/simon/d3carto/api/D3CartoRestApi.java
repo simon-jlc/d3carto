@@ -40,7 +40,8 @@ public class D3CartoRestApi {
 	@RequestMapping(value="/api/carto", method=RequestMethod.GET)
 	public D3jsFlatNodeJson carto() {
 		ApplicationNode appNode = applicationNodeRepositories.findFirstByEnvironmentOrderByIdDesc(Environment.DEV1);
-		return convertToFlatNode(appNode, null);
+//		return convertToFlatNode(appNode, null);
+		return null;
 	}
 	
 	private static List<D3jsFlatNodeJson> convertToFlatNode(ApplicationNode node, ApplicationNode parentNode) {
