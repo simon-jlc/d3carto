@@ -31,10 +31,10 @@ import com.simon.d3carto.domain.node.DatabaseNode;
  * @since 11 avr. 2015
  * @author simon 
  */
-@Component("nodeItemProcessor")
+@Component("transformDatasTasklet")
 @Scope("step")
 @Slf4j
-public class NodeItemProcessor implements Tasklet {
+public class TransformDatasTasklet implements Tasklet {
 
 	@Autowired
 	private D3CartoEnvironmentConfig d3CartoEnvironmentConfig;
@@ -84,6 +84,7 @@ public class NodeItemProcessor implements Tasklet {
 					config,
 					environment)));
 			// FIXME modifier la creation du POJO
+			
 //			return new ApplicationNode(
 //					environment.getProperty(app.getApplicationName()), 
 //					environment.getProperty(app.getApplicationHost()),

@@ -1,50 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:elasticsearch="http://www.springframework.org/schema/data/elasticsearch"
-       xsi:schemaLocation="http://www.springframework.org/schema/data/elasticsearch http://www.springframework.org/schema/data/elasticsearch/spring-elasticsearch-1.0.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:elasticsearch="http://www.springframework.org/schema/data/elasticsearch"
+	xmlns:batch="http://www.springframework.org/schema/batch" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/data/elasticsearch http://www.springframework.org/schema/data/elasticsearch/spring-elasticsearch-1.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
-
-	<!-- E L A S T I C S E A R C H    C L I E N T -->
-    <elasticsearch:node-client id="client" local="true"/>
-
-    <!--<elasticsearch:transport-client id="client" cluster-name="elasticsearch" cluster-nodes="127.0.0.1:9300"/>-->
-    <bean name="elasticsearchTemplate" class="org.springframework.data.elasticsearch.core.ElasticsearchTemplate">
-        <constructor-arg name="client" ref="client"/>
-    </bean>
-
-
-    <elasticsearch:repositories base-package="org.springframework.data.elasticsearch.repositories" />
-
-	<!-- S P R I N G    B A T C H    C O N F I G U R A T I O N -->
-	<import resource="classpath:/spring/d3carto-job-context.xml" />
-    <import resource="classpath:/spring/d3carto-job-database.xml" />
+	<!-- S P R I N G B A T C H C O N F I G U R A T I O N -->
+	<import resource="d3carto-job-database.xml" />
+	<import resource="d3carto-job-context.xml" />
 
 	<!-- T A S K L E T S -->
-	<bean id="nodeItemReader" class="com.simon.d3carto.batch.tasklet.NodeItemReader" scope="step" />
-	<bean id="nodeItemProcessor" class="com.simon.d3carto.batch.tasklet.NodeItemProcessor" scope="step" />
-	<bean id="nodeItemWriter" class="com.simon.d3carto.batch.tasklet.NodeItemWriter" scope="step" />
-	
+	<bean id="extractDatasTasklet" class="com.simon.d3carto.batch.tasklet.ExtractDatasTasklet"
+		scope="step" />
+	<bean id="transformDatasTasklet" class="com.simon.d3carto.batch.tasklet.TransformDatasTasklet"
+		scope="step" />
+	<bean id="loadDatasTasklet" class="com.simon.d3carto.batch.tasklet.LoadDatasTasklet"
+		scope="step" />
+
 	<!-- J O B -->
-    <!-- 
-        Job features :
-        -> EXTRACT: Retrive environments datas (configuration file)
-        -> TRANSFORM: Create a POJO from all configuration file
-        -> LOAD: Push data into NoSQL DB (ElasticSearch)   
-    -->
-    <job id="d3CartoJob" xmlns="http://www.springframework.org/schema/batch">
-        <step id="getEnvironmentDatas" >            
-        	<tasklet ref="nodeItemReader" />
-        	<next on="*" to="transformEnvironmentDatas"/>
-        </step>
-        <step id="transformEnvironmentDatas">
-        	<tasklet ref="nodeItemProcessor" />
-        	<next on="*" to="pushEnvironmentDatas"/>
-        </step>
-        <step id="pushEnvironmentDatas">
-        	<tasklet ref="nodeItemWriter" />
-        </step>
-    </job>
+	<!-- Job features : 
+		-> EXTRACT: Retrive environments datas (configuration file) 
+		-> TRANSFORM: Create a POJO from all configuration file 
+		-> LOAD: Push data into NoSQL DB (ElasticSearch) -->
+	<batch:job id="d3CartoJob">
+		<batch:step id="extractDatas">
+			<batch:tasklet ref="extractDatasTasklet" />
+			<batch:next on="*" to="transformDatas" />
+		</batch:step>
+		<batch:step id="transformDatas">
+			<batch:tasklet ref="transformDatasTasklet" />
+			<batch:next on="*" to="loadDatas" />
+		</batch:step>
+		<batch:step id="loadDatas">
+			<batch:tasklet ref="loadDatasTasklet" />
+		</batch:step>
+	</batch:job>
+
+	<!-- E L A S T I C S E A R C H C L I E N T -->
+	<elasticsearch:node-client id="client" local="true" />
+
+	<!--<elasticsearch:transport-client id="client" cluster-name="elasticsearch" 
+		cluster-nodes="127.0.0.1:9300"/> -->
+	<bean name="elasticsearchTemplate"
+		class="org.springframework.data.elasticsearch.core.ElasticsearchTemplate">
+		<constructor-arg name="client" ref="client" />
+	</bean>
+
+
+	<elasticsearch:repositories
+		base-package="com.simon.d3carto.repositories" />
+
+	<!-- J O B S C H E D U L E R -->
+	<bean id="d3CartoJobLauncher" class="com.simon.d3carto.batch.D3CartoJobLauncher" />
+
+	<!-- Run every 5 seconds -->
+	<task:scheduled-tasks>
+		<!-- <task:scheduled ref="runScheduler" method="run" fixed-delay="5000" 
+			/> -->
+		<task:scheduled ref="d3CartoJobLauncher" method="run"
+			cron="*/5 * * * * *" />
+	</task:scheduled-tasks>
 
 </beans>

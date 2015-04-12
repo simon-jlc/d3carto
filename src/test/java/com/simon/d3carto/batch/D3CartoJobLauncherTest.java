@@ -25,37 +25,45 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.simon.d3carto.AbstractSpringTest;
 
-
-@ContextConfiguration(
-        locations = {"classpath*:/spring/d3carto-job-definition.xml",
-                       "classpath*:/spring/d3carto-job-test-context.xml"})
+@ContextConfiguration(locations = {
+		"classpath:spring/d3carto-application-test-context.xml",
+		"classpath:spring/d3carto-elasticsearch-test.xml"
+	})
 public class D3CartoJobLauncherTest extends AbstractSpringTest {
 
-    
-    /**
-     * JobLauncherTestUtils Bean.
-     */
-    @Autowired
-    private JobLauncherTestUtils jobLauncherTestUtils;
+	@Autowired
+	private D3CartoJobLauncher d3CartoJobLauncher;
 
-    /**
-     * Launch Test.
-     */
-    @Test
-    public void launchJob() throws Exception {
-        // launch the job, the utils provide the job with a unique parameter
-        JobExecution jobExecution = jobLauncherTestUtils.launchJob();
-        // assert job run status
-        assertEquals(BatchStatus.COMPLETED, jobExecution.getStatus());
-    }
+	/**
+	 * JobLauncherTestUtils Bean.
+	 */
+	@Autowired
+	private JobLauncherTestUtils jobLauncherTestUtils;
 
-    @Before
-    public void setup() {
-       
-    }
+	/**
+	 * Launch Test.
+	 */
+	@Test
+	public void launchJobTest() throws Exception {
+		// launch the job, the utils provide the job with a unique parameter
+		JobExecution jobExecution = jobLauncherTestUtils.launchJob();
+		
+//		Job job = jobLauncherTestUtils.getJob();
+//		JobLauncher jobLauncher = jobLauncherTestUtils.getJobLauncher();
+//		JobExecution jobExecution = jobLauncher.run(job, new JobParameters());
+		
+		
+		// assert job run status
+		assertEquals(BatchStatus.COMPLETED, jobExecution.getStatus());
+	}
+	
+	@Before
+	public void setup() {
 
-    @After
-    public void tearDown() {
-       
-    }
+	}
+
+	@After
+	public void tearDown() {
+
+	}
 }

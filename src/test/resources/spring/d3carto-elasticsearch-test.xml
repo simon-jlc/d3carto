@@ -13,7 +13,7 @@
     </bean>
 
 
-    <elasticsearch:repositories base-package="org.springframework.data.elasticsearch.repositories" />
+    <elasticsearch:repositories base-package="com.simon.d3carto.repositories" />
 
 
 </beans>

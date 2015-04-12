@@ -8,12 +8,14 @@ import javax.annotation.Resource;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.context.ContextConfiguration;
 
 import com.google.common.collect.Lists;
 import com.simon.d3carto.AbstractSpringTest;
 import com.simon.d3carto.domain.node.ApplicationNode;
 import com.simon.d3carto.domain.node.DatabaseNode;
 
+@ContextConfiguration(locations="classpath:spring/d3carto-elasticsearch-test.xml")
 public class ApplicationNodeRepositoriesTest extends AbstractSpringTest {
 
     @Resource

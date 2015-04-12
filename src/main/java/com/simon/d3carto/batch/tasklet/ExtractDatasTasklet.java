@@ -18,10 +18,10 @@ import com.simon.d3carto.config.D3CartoEnvironmentConfig;
  * @since 11 avr. 2015
  * @author simon 
  */
-@Component("nodeItemReader")
+@Component("extractDatasTasklet")
 @Scope("step")
 @Slf4j
-public class NodeItemReader implements Tasklet{
+public class ExtractDatasTasklet implements Tasklet{
 
 	@Autowired
 	private D3CartoEnvironmentConfig d3CartoEnvironmentConfig;
