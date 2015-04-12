@@ -7,6 +7,6 @@ package com.simon.d3carto.domain;
  */
 public enum Environment {
 	
-	DEV1
+	DEV1, DEV2
 	
 }

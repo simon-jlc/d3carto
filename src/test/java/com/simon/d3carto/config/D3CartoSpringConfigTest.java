@@ -7,6 +7,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.PropertySource;
 
 import com.simon.d3carto.D3CartoApplication;
+import com.simon.d3carto.batch.D3CartoJobLauncher;
 
 /**
  * 
@@ -17,7 +18,8 @@ import com.simon.d3carto.D3CartoApplication;
 @ComponentScan(basePackages="com.simon.d3carto", 
 	excludeFilters={
 		@ComponentScan.Filter(value=D3CartoApplication.class, type=FilterType.ASSIGNABLE_TYPE),
-		@ComponentScan.Filter(value=D3CartoConfig.class, type=FilterType.ASSIGNABLE_TYPE)
+		@ComponentScan.Filter(value=D3CartoConfig.class, type=FilterType.ASSIGNABLE_TYPE),
+		@ComponentScan.Filter(value=D3CartoJobLauncher.class, type=FilterType.ASSIGNABLE_TYPE)
 	})
 @PropertySource("classpath:/config/environment-dev-test.properties")
 @EnableConfigurationProperties(D3CartoEnvironmentConfig.class) // Initialize an instance from @ConfigurationProperties file

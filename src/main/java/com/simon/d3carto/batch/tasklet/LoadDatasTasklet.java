@@ -31,20 +31,11 @@ public class LoadDatasTasklet implements Tasklet {
 	@Override
 	public RepeatStatus execute(StepContribution contribution,
 			ChunkContext chunkContext) throws Exception {
-		log.info("[Tasklet] NodeItemWriter.execute() is starting...");
 
 		ExecutionContext ecJob = chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext();
-		
 		ApplicationNode appNode = (ApplicationNode) ecJob.get("environment.appNode");
-		
 		if(appNode != null) {
-			log.info("[Tasklet] appNode.environment=" + appNode.getEnvironment());
-			log.info("[Tasklet] appNode.name=" + appNode.getName());
-//			log.info("[Tasklet] appNode.databases.size=" + appNode.getDatabases()
-//					.size());
-//			log.info("[Tasklet] appNode.applications.size={} ", appNode
-//					.getLinkedApps().size());
-			
+			log.info("Saving current environment config to elasticserch");
 			applicationNodeRepositories.save(appNode);
 		}
 

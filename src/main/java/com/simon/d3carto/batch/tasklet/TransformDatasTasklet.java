@@ -1,5 +1,6 @@
 package com.simon.d3carto.batch.tasklet;
 
+import java.util.Date;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
@@ -83,25 +84,24 @@ public class TransformDatasTasklet implements Tasklet {
 					convertApp(findLinkedAppFromSimpleApp(a, config, environment),
 					config,
 					environment)));
-			// FIXME modifier la creation du POJO
-			
-//			return new ApplicationNode(
-//					environment.getProperty(app.getApplicationName()), 
-//					environment.getProperty(app.getApplicationHost()),
-//					leafsTmp,
-//					databases);
-			
+
+			// FIXME modifier la generation de l'ID
+			new ApplicationNode(
+					new String(Long.toString(new Date().getTime())),
+					environment.getProperty(app.getApplicationName()), 
+					environment.getProperty(app.getApplicationHost()),
+					leafsTmp,
+					databases);
 		}
 
-		// FIXME modifier la creation du pojo
+		// FIXME modifier la generation de l'ID
 		// return ApplcationNode with empty leafs
-//		return new ApplicationNode(
-//				environment.getProperty(app.getApplicationName()), 
-//				environment.getProperty(app.getApplicationHost()),
-//				null,
-//				databases);
-		
-		return null;
+		return new ApplicationNode(
+				new String(Long.toString(new Date().getTime())),
+				environment.getProperty(app.getApplicationName()), 
+				environment.getProperty(app.getApplicationHost()),
+				null,
+				databases);
 	}
 	
 	private static App findLinkedAppFromSimpleApp(SimpleApp simpleApp, D3CartoEnvironmentConfig config, Environment environment) {
@@ -116,27 +116,5 @@ public class TransformDatasTasklet implements Tasklet {
 	
 	private static DatabaseNode convert(Database db, Environment environment) {
 		return new DatabaseNode(environment.getProperty(db.getUser()), environment.getProperty(db.getHost()));
-	}
-	
-	private static List<D3jsFlatNodeJson> convertToFlatNode(D3jsNode node, D3jsNode parentNode) {
-		
-		if(node.hasChildren()) {
-			List<D3jsFlatNodeJson> leafsFlatNodes = Lists.newArrayList();
-			List<D3jsNode> leafsNodes = node.getChildren();
-			leafsNodes.forEach(n -> leafsFlatNodes.addAll(convertToFlatNode(n, node)));
-			if(parentNode != null) {
-				D3jsFlatNodeJson d3jsFlatNodeJson = new D3jsFlatNodeJson(); 
-				d3jsFlatNodeJson.setSource(parentNode.getNodeName());
-				d3jsFlatNodeJson.setSource(node.getNodeName());
-				leafsFlatNodes.add(d3jsFlatNodeJson);
-			}
-			return leafsFlatNodes;
-		}
-		
-		D3jsFlatNodeJson d3jsFlatNodeJson = new D3jsFlatNodeJson(); 
-		d3jsFlatNodeJson.setSource(parentNode.getNodeName());
-		d3jsFlatNodeJson.setSource(node.getNodeName());
-		
-		return Lists.newArrayList(d3jsFlatNodeJson);
 	}
 }

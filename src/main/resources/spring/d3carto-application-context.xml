@@ -25,7 +25,7 @@
 		-> EXTRACT: Retrive environments datas (configuration file) 
 		-> TRANSFORM: Create a POJO from all configuration file 
 		-> LOAD: Push data into NoSQL DB (ElasticSearch) -->
-	<batch:job id="d3CartoJob">
+	<batch:job id="d3CartoJob" restartable="true">
 		<batch:step id="extractDatas">
 			<batch:tasklet ref="extractDatasTasklet" />
 			<batch:next on="*" to="transformDatas" />
@@ -57,11 +57,11 @@
 	<bean id="d3CartoJobLauncher" class="com.simon.d3carto.batch.D3CartoJobLauncher" />
 
 	<!-- Run every 5 seconds -->
-	<task:scheduled-tasks>
-		<!-- <task:scheduled ref="runScheduler" method="run" fixed-delay="5000" 
-			/> -->
-		<task:scheduled ref="d3CartoJobLauncher" method="run"
-			cron="*/5 * * * * *" />
-	</task:scheduled-tasks>
+<!-- 	<task:scheduled-tasks> -->
+<!-- 		<task:scheduled ref="runScheduler" method="run" fixed-delay="5000"  -->
+<!-- 			/> -->
+<!-- 		<task:scheduled ref="d3CartoJobLauncher" method="run" -->
+<!-- 			cron="*/5 * * * * *" /> -->
+<!-- 	</task:scheduled-tasks> -->
 
 </beans>

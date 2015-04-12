@@ -1,7 +1,10 @@
 package com.simon.d3carto.repositories;
 
+import java.util.List;
+
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
+import com.simon.d3carto.domain.Environment;
 import com.simon.d3carto.domain.node.ApplicationNode;
 
 /**
@@ -11,4 +14,8 @@ import com.simon.d3carto.domain.node.ApplicationNode;
  */
 public interface ApplicationNodeRepositories extends ElasticsearchRepository<ApplicationNode, String> {
 
+	ApplicationNode findFirstByEnvironmentOrderByIdDesc(Environment environment);
+	
+//	List<ApplicationNode> findTopByEnvironment();
+	
 }

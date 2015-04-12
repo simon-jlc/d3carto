@@ -29,10 +29,8 @@ public class ExtractDatasTasklet implements Tasklet{
 	@Override
 	public RepeatStatus execute(StepContribution contribution,
 			ChunkContext chunkContext) throws Exception {
-		log.info("[Tasklet] NodeItemReader.execute() is starting...");
 		ExecutionContext ecJob = chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext();
 		ecJob.put("environment.app", d3CartoEnvironmentConfig.getMainApplication());
-		log.info("[Tasklet] NodeItemReader.execute() is finished");
 		return RepeatStatus.FINISHED;
 	}
 }
